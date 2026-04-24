@@ -1,0 +1,169 @@
+
+<HTML>
+
+    <head>
+
+        <meta charset = "UTF-8">
+        <title>Game XO</title>
+
+        <style>
+
+            .board{
+
+                display: flex;
+                
+                flex-wrap : wrap;
+                align-items: center;;
+                justify-content: center;
+                
+
+                width: 315px;
+                margin : 3rem auto;
+
+
+            }
+
+
+            .cell{
+              
+
+                width: 80px;
+                height: 80px;
+
+                margin : 5px;
+                padding-top: 15px;
+
+                text-align: center;
+
+                background-color:blue;
+
+                font-size: 2rem;
+
+             
+
+
+
+            }
+
+            #status{
+                text-align: center;
+            }
+
+
+
+        </style>
+
+
+</head>
+
+
+
+
+        <body>
+
+            <h1 id = "status">Player X</h1><br>
+
+        <div class = "board">
+
+            <div class = "cell"></div>
+            <div class = "cell"></div>
+            <div class = "cell"></div>
+            <div class = "cell"></div>
+            <div class = "cell"></div>
+            <div class = "cell"></div>
+            <div class = "cell"></div>
+            <div class = "cell"></div>
+            <div class = "cell"></div>
+
+        </div>
+
+        <button onclick = "resert()">Resert Player</button>
+
+        
+
+        <script>
+            
+
+            let currentplayer = "X";
+
+            let cell = document.querySelectorAll(".cell");
+
+            let status = document.getElementById("status");
+
+            let winplayer = [
+
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 4, 7],
+                [2, 4, 6],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2 ,5, 8]
+
+        ];
+
+             cell.forEach ( function(cell) {
+
+                cell.onclick = function () {
+
+                    if (cell.innerHTML === "") {
+
+                        cell.innerHTML = currentplayer;
+
+                        if (currentplayer === "X"){
+                            currentplayer = "O";
+                        }
+                        else{
+                            currentplayer = "X";
+                        }
+
+                        status.innerHTML = "Player" + currentplayer;
+                        checkwin();
+
+                    }
+                };
+
+             });
+
+            
+
+             function checkwin() {
+                for (let i=0; i<winplayer.length; i++){
+
+                    let a = winplayer[i][0];
+                    let b = winplayer[i][1];
+                    let c = winplayer[i][2];
+
+                    if (cell[a].innerHTML === cell[b].innerHTML && cell[b].innerHTML === cell[c].innerHTML && cell[a].innerHTML !== "" ) {
+
+                        status.innerHTML = "WINNER IS " + cell[a].innerHTML;
+
+                    }
+
+                }
+             }
+
+             function resert() {
+
+                cell.forEach(function (cell) {
+
+                    cell.innerHTML = "";
+                });
+
+                currentplayer = "x";
+
+                status.innerHTML = "Player X";
+
+            }
+
+            
+
+
+        </script>
+
+
+        </body>
+
+
+</html>
